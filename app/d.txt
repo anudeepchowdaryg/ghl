@@ -1,0 +1,39 @@
+I have analyzed the hero section and scroll effects of findrealestate.com and observed a highly cinematic, multi-stage scroll-linked animation. Below is a detailed breakdown of the visual sequence and the technical implementation.
+
+Visual Animation Sequence
+Initial State (Hero Load):
+Text: The primary headline "Find What Moves You" is displayed in solid, high-contrast typography.
+Image: A large building image is anchored at the bottom of the viewport, partially obscured by the bottom edge. The background is a soft sky/cloudscape.
+Initial Scroll (0 - 300px):
+Fade-Out: The "Find What Moves You" text begins to fade away smoothly.
+Parallax: The building starts to move upward at a faster rate than the scroll (parallax), giving a sense of depth and massive scale.
+The Outline Reveal (300 - 800px):
+New Typography: A secondary text layer, "FIND Real Estate," fades in.
+Stroke Effect: Initially, this text is rendered only as a white outline (stroke) with a transparent fill.
+Interaction: The building continues to rise, passing behind the outlined letters. At this stage, you can see the building through the transparent center of the "FIND" letters.
+The Masking Transition (800 - 1500px):
+The "Pop": This is the climax of the effect. As you scroll further, a seamless transition occurs.
+Background Fade: The building image in the background (outside the text) begins to dissolve or fade in opacity.
+Text Fill: Simultaneously, the "FIND Real Estate" letters transition from a stroke to a masked fill. The building image appears "trapped" inside the letters.
+Final Result:
+The background building completely disappears, leaving only the sky.
+The text "FIND Real Estate" is now a window (mask) through which the building texture is visible. The texture perfectly aligns with where the building was just a moment before, creating a "locking" effect.
+Technical Analysis & CSS Techniques
+Based on the behavior, the site likely uses the following techniques:
+
+Dual Layering: There are likely two identical building images. One is a standard background/img layer, and the other is a hidden layer used for the text fill.
+background-clip: text or SVG Masking:
+The "FIND Real Estate" text likely uses background-clip: text with a background image of the building.
+Alternatively, an SVG <mask> or CSS mask-image is used. This allows the building to be visible only within the bounds of the text paths.
+Scroll-Linked Animation (JS):
+The movement is tied to window.scrollY. Libraries like GSAP (ScrollTrigger) or Framer Motion are commonly used for this level of precision.
+Opacity Mapping: The stroke opacity and background building opacity are likely mapped to specific scroll ranges (e.g., opacity: 1 at 800px, opacity: 0 at 1200px).
+Parallax Transform: Both the background building and the building image inside the text move using transform: translateY() but at slightly different multipliers to maintain the "window" illusion.
+Summary for Implementation
+To replicate this, you would need:
+
+A sticky container for the hero section to keep it in view.
+A solid text layer that fades out.
+A masked text layer (building inside) that starts at opacity: 0.
+A stroke text layer that fades in/out.
+A background building layer that moves up and fades out as the masked layer fades in. this how it has be done 
