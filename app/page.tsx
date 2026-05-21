@@ -8,14 +8,14 @@ import { SiteFooter } from "./components/SiteFooter";
 
 const testimonials = [
   {
-    quote: "GHL was phenomenal to work with. Their team guided us from the initial blueprint stage all the way to move-in day. The craftsmanship and attention to structural detail in our new property is absolutely world-class. We couldn't be happier with the build quality and their ongoing support!",
-    author: "BERNADETTE HOGAN",
+    quote: "Anudeep was very approachable and respectful... We got a sense of belonging and connected very well with him. The legalities were well explained in detail and  patiently, his professional approach made the entire process smooth and trustworthy. The construction quality, elegant design and overall ambience of the apartment are truly commendable. We were fortunate to meet GHL and got this home for us... It's all happy living ",
+    author: "Chetan Raju",
     rating: "★★★★★",
     image: "/mortgage_img.png"
   },
   {
-    quote: "As a business owner, commercial contracting requires speed and precision. GHL delivered our corporate hub on schedule and within budget, with structural standards that far exceeded our expectations. An outstanding developer!",
-    author: "RAJESH KRISHNAN",
+    quote: "Anudeep sir treated us with respect from day one. He explained the project clearly and honestly, which built a strong sense of trust and confidence. The apartment stands out for its quality construction, modern architecture, peaceful surroundings and well-maintained ambience. You can clearly see the attention given to every detail. It is rare to find a combination of good quality, aesthetics and positive customer experience together. Falcon Ritz a perfect place to call home.",
+    author: "Deepa Chetan",
     rating: "★★★★★",
     image: "/management_img.png"
   },
