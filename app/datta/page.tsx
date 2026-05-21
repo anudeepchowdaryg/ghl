@@ -122,50 +122,50 @@ export default function DattaProject() {
       </section>
 
       {/* Visual Narrative Grid Section */}
-      <section style={{ padding: '12rem clamp(2rem, 8vw, 10rem)', backgroundColor: '#fff' }}>
+      <section className="project-gallery-section">
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <Reveal direction="up">
-            <p style={{ fontSize: '0.85rem', letterSpacing: '4px', color: '#a0a0a0', marginBottom: '6rem', textTransform: 'uppercase', fontWeight: 700 }}>03 / Visual Narrative</p>
+            <p className="project-gallery-label">03 / Visual Narrative</p>
           </Reveal>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '2.5rem' }}>
+
+          <div className="project-gallery-grid">
             {/* Main large image */}
-            <Reveal direction="left" className="gallery-item" style={{ gridColumn: 'span 8', position: 'relative', height: '550px', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.03)' }}>
+            <Reveal direction="left" className="gallery-item gallery-item--wide">
               <div className="gallery-overlay" />
               <Image src="/ghldatta.jpeg" alt="Datta Architectural View" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw" style={{ objectFit: 'cover' }} />
-              <div style={{ position: 'absolute', bottom: '2.5rem', left: '2.5rem', color: '#fff', zIndex: 2 }}>
-                <span style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', opacity: 0.8, fontWeight: 700 }}>Exterior Aspect</span>
-                <h4 style={{ fontSize: '2rem', fontWeight: 800, margin: '0.3rem 0 0 0', letterSpacing: '-0.02em' }}>Modern Elevation</h4>
+              <div className="gallery-caption">
+                <span className="gallery-caption__eyebrow">Exterior Aspect</span>
+                <h4 className="gallery-caption__title">Modern Elevation</h4>
               </div>
             </Reveal>
             
             {/* Small right image */}
-            <Reveal direction="right" delay={120} className="gallery-item" style={{ gridColumn: 'span 4', position: 'relative', height: '550px', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.03)' }}>
+            <Reveal direction="right" delay={120} className="gallery-item gallery-item--narrow-tall">
               <div className="gallery-overlay" />
               <Image src="/vision.png" alt="Datta Interior" fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
-              <div style={{ position: 'absolute', bottom: '2.5rem', left: '2.5rem', color: '#fff', zIndex: 2 }}>
-                <span style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', opacity: 0.8, fontWeight: 700 }}>Living Pavilion</span>
-                <h4 style={{ fontSize: '2rem', fontWeight: 800, margin: '0.3rem 0 0 0', letterSpacing: '-0.02em' }}>Bespoke Interior</h4>
+              <div className="gallery-caption">
+                <span className="gallery-caption__eyebrow">Living Pavilion</span>
+                <h4 className="gallery-caption__title">Bespoke Interior</h4>
               </div>
             </Reveal>
 
             {/* Bottom left small image */}
-            <Reveal direction="left" delay={200} className="gallery-item" style={{ gridColumn: 'span 4', position: 'relative', height: '420px', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.03)' }}>
+            <Reveal direction="left" delay={200} className="gallery-item gallery-item--narrow">
               <div className="gallery-overlay" />
               <Image src="/Construction_Renovations_Remodeling.jpeg" alt="Datta Detail" fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
-              <div style={{ position: 'absolute', bottom: '2.5rem', left: '2.5rem', color: '#fff', zIndex: 2 }}>
-                <span style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', opacity: 0.8, fontWeight: 700 }}>Renovation Detail</span>
-                <h4 style={{ fontSize: '2rem', fontWeight: 800, margin: '0.3rem 0 0 0', letterSpacing: '-0.02em' }}>Precision Core</h4>
+              <div className="gallery-caption">
+                <span className="gallery-caption__eyebrow">Renovation Detail</span>
+                <h4 className="gallery-caption__title">Precision Core</h4>
               </div>
             </Reveal>
 
             {/* Bottom right large image */}
-            <Reveal direction="right" delay={280} className="gallery-item" style={{ gridColumn: 'span 8', position: 'relative', height: '420px', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.03)' }}>
+            <Reveal direction="right" delay={280} className="gallery-item gallery-item--wide-short">
               <div className="gallery-overlay" />
               <Image src="/contrcution_consulting_service.jpeg" alt="Datta Landscape" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw" style={{ objectFit: 'cover' }} />
-              <div style={{ position: 'absolute', bottom: '2.5rem', left: '2.5rem', color: '#fff', zIndex: 2 }}>
-                <span style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', opacity: 0.8, fontWeight: 700 }}>Landscape aspect</span>
-                <h4 style={{ fontSize: '2rem', fontWeight: 800, margin: '0.3rem 0 0 0', letterSpacing: '-0.02em' }}>Seamless Transitions</h4>
+              <div className="gallery-caption">
+                <span className="gallery-caption__eyebrow">Landscape aspect</span>
+                <h4 className="gallery-caption__title">Seamless Transitions</h4>
               </div>
             </Reveal>
           </div>

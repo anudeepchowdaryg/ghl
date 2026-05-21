@@ -27,9 +27,10 @@ export function SiteFooter() {
             <Image
               src="/GHL SYMBOL WHITE PNG.png"
               alt="GHL"
-              width={4816}
-              height={4058}
+              width={200}
+              height={169}
               className="site-footer__logo"
+              style={{ width: "auto", height: "auto" }}
               priority={false}
             />
             <p className="site-footer__tagline">

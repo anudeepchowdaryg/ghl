@@ -8,7 +8,7 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "GHL | Gali Hugh Lining",
+  title: "GHL | Gali High Living",
   description: "Premium real estate builders and developers. We build more than properties, we build legacies.",
 };
 
