@@ -232,13 +232,14 @@ export default function Home() {
           {/* Phase 1: Initial Solid Text */}
           <div style={{
             position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start',
+            paddingTop: 'clamp(6rem, 14vh, 9rem)',
             zIndex: 3,
             opacity: Math.max(0, 1 - scrollY / 300),
-            transform: `translateY(calc(-15vh + ${scrollY * 0.3}px))`,
+            transform: `translateY(${scrollY * 0.3}px)`,
             pointerEvents: scrollY < 300 ? 'auto' : 'none'
           }}>
-            <h1 className="hero-title-layered" style={{ fontSize: 'clamp(4rem, 8vw, 8rem)', marginBottom: '1rem', textAlign: 'center' }}>Build What Moves You</h1>
+            <h1 className="hero-title-layered" style={{ fontSize: 'clamp(4rem, 8vw, 8rem)', marginBottom: '0.35rem', textAlign: 'center' }}>Build What Moves You</h1>
             <p className="hero-subtitle-layered" style={{ textAlign: 'center', maxWidth: '600px' }}>
               <span style={{ fontWeight: 700 }}>Gali High Living.</span> Crafting tomorrow's landmarks and premium living spaces.
             </p>
