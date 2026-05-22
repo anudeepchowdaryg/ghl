@@ -735,9 +735,6 @@ a {
 }
 
 .site-footer__logo {
-  width: auto;
-  max-width: min(200px, 36vw);
-  height: auto;
   object-fit: contain;
   object-position: left center;
 }
@@ -905,10 +902,6 @@ a {
 
   .site-footer__brand {
     min-height: auto;
-  }
-
-  .site-footer__logo {
-    max-width: min(140px, 38vw);
   }
 
   .site-footer__tagline {
