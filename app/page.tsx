@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Reveal } from "./components/Reveal";
 import { SiteFooter } from "./components/SiteFooter";
 
@@ -39,17 +39,34 @@ const testimonials = [
   }
 ];
 
+const ghlLogoPaths = [
+  "M 30 0 L 10 0 A 10 10 0 0 0 0 10 L 0 90 A 10 10 0 0 0 10 100 L 30 100 L 30 57.5 L 15 65 L 15 75 L 20 75 L 20 90 L 10 90 L 10 10 L 20 10 L 20 47.5 L 30 42.5 Z",
+  "M 40 0 L 50 0 L 50 32.5 L 40 37.5 Z",
+  "M 40 52.5 L 50 47.5 L 50 100 L 40 100 Z",
+  "M 60 0 L 70 0 L 70 37.5 L 60 32.5 Z",
+  "M 60 47.5 L 70 52.5 L 70 100 L 60 100 Z",
+  "M 80 0 L 90 0 L 90 47.5 L 80 42.5 Z",
+  "M 80 57.5 L 90 62.5 L 90 90 L 100 90 L 100 67.5 L 110 72.5 L 110 90 A 10 10 0 0 1 100 100 L 80 100 Z",
+  "M 55 32.5 L 80 45 L 80 55 L 55 42.5 L 30 55 L 30 45 Z",
+];
+
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const ghlPathRefs = useRef<(SVGPathElement | null)[]>([]);
+  const taglineMeasureRef = useRef<SVGTextElement | null>(null);
+  const [ghlPathLengths, setGhlPathLengths] = useState<number[]>([]);
+  const [taglineLength, setTaglineLength] = useState(3200);
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+  useLayoutEffect(() => {
+    const lengths = ghlPathRefs.current.map((path) => path?.getTotalLength() ?? 0);
+    if (lengths.some((length) => length > 0)) {
+      setGhlPathLengths(lengths);
+    }
+    if (taglineMeasureRef.current) {
+      setTaglineLength(taglineMeasureRef.current.getComputedTextLength() * 1.15);
+    }
   }, []);
 
   useEffect(() => {
@@ -71,6 +88,107 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const GHL_DRAW_DISTANCE = 420;
+  const TAGLINE_DRAW_DISTANCE = 540;
+  const FILL_START = 850;
+  const FILL_DURATION = 480;
+
+  const ghlDrawProgress = Math.max(0, scrollY - 200);
+  const ghlOutlineOpacity = 1 - Math.max(0, (scrollY - FILL_START) / FILL_DURATION);
+  const ghlFillOpacity = Math.min(1, Math.max(0, (scrollY - FILL_START) / FILL_DURATION));
+  const taglineStrokeOffset = Math.max(0, taglineLength - ghlDrawProgress * (taglineLength / TAGLINE_DRAW_DISTANCE));
+
+  const renderGhlSvg = (variant: "desktop" | "mobile") => {
+    const isMobile = variant === "mobile";
+    const maskId = `ghl-mask-${variant}`;
+    const logoTransform = isMobile
+      ? "translate(500, 455) scale(3.3) translate(-55, -50)"
+      : "translate(500, 400) scale(3.5) translate(-55, -50)";
+    const taglineY = isMobile ? 780 : 710;
+    const taglineFontSize = isMobile ? 58 : 78;
+    const taglineLetterSpacing = isMobile ? 6 : 8;
+    const fillImageY = isMobile ? 60 : 40;
+
+    const taglineTextProps = {
+      x: 500,
+      y: taglineY,
+      textAnchor: "middle" as const,
+      dominantBaseline: "middle" as const,
+      fontSize: taglineFontSize,
+      fontWeight: 700,
+      letterSpacing: taglineLetterSpacing,
+      fontFamily: "var(--font-instrument-sans), system-ui, sans-serif",
+    };
+
+    return (
+      <svg
+        key={variant}
+        className={`hero-ghl-outline-svg hero-ghl-svg--${variant}`}
+        viewBox="0 -80 1000 1080"
+        preserveAspectRatio="xMidYMid meet"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <defs>
+          <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="-80" width="1000" height="1080">
+            <rect x="0" y="-80" width="1000" height="1080" fill="black" />
+            <g transform={logoTransform} fill="white">
+              {ghlLogoPaths.map((d, index) => (
+                <path key={`${variant}-mask-${index}`} d={d} />
+              ))}
+            </g>
+            <text {...taglineTextProps} fill="white">
+              GALI HIGH LIVING
+            </text>
+          </mask>
+        </defs>
+
+        <g mask={`url(#${maskId})`} opacity={ghlFillOpacity}>
+          <image
+            href="/mainhero.png"
+            x="0"
+            y={fillImageY}
+            width="1000"
+            height="920"
+            preserveAspectRatio="xMidYMid slice"
+          />
+        </g>
+
+        <g opacity={ghlOutlineOpacity}>
+          <g transform={logoTransform} fill="transparent" stroke="rgba(255,255,255,0.9)" strokeWidth="1">
+            {ghlLogoPaths.map((d, index) => {
+              const pathLength = ghlPathLengths[index] || 500;
+              return (
+                <path
+                  key={`${variant}-outline-${index}`}
+                  ref={isMobile ? undefined : (element) => {
+                    ghlPathRefs.current[index] = element;
+                  }}
+                  d={d}
+                  strokeDasharray={pathLength}
+                  strokeDashoffset={Math.max(0, pathLength - ghlDrawProgress * (pathLength / GHL_DRAW_DISTANCE))}
+                />
+              );
+            })}
+          </g>
+          <text
+            {...taglineTextProps}
+            fill="transparent"
+            stroke="rgba(255,255,255,0.9)"
+            strokeWidth="1.2"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeDasharray={taglineLength}
+            strokeDashoffset={taglineStrokeOffset}
+            opacity={ghlOutlineOpacity * (1 - ghlFillOpacity)}
+          >
+            GALI HIGH LIVING
+          </text>
+        </g>
+      </svg>
+    );
+  };
+
   return (
     <>
       <nav className="navbar" style={{
@@ -81,7 +199,7 @@ export default function Home() {
         transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, box-shadow 0.4s ease'
       }}>
         <div className="nav-brand" style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
-          <Image src="/logo.png" alt="GHL Logo" width={150} height={50} style={{ objectFit: 'contain', maxHeight: '40px', width: 'auto' }} priority />
+          <Image src="/logo.png" alt="GHL Logo" width={150} height={50} style={{ objectFit: 'contain', maxHeight: '40px', width: 'auto', height: 'auto' }} priority />
         </div>
         <div className="nav-links" style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '3rem' }}>
           <a href="#projects" className="nav-link">Projects</a>
@@ -94,10 +212,10 @@ export default function Home() {
       </nav>
 
       <div style={{ height: '350vh', position: 'relative' }}>
-        <section className="hero-layered" style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
-          <div className="hero-layer hero-sky" style={{ position: 'absolute', top: '-10%', left: '-5%', width: '110%', height: '120%', transform: `translateY(${scrollY * 0.05}px)` }}>
-            <div style={{ width: '100%', height: '100%', opacity: 0, animation: 'slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
-              <div style={{ width: '100%', height: '100%', position: 'absolute', animation: 'slowPan 30s ease-in-out infinite alternate' }}>
+        <section className="hero-layered" style={{ position: 'sticky', top: 0, height: '100dvh', overflow: 'hidden' }}>
+          <div className="hero-layer hero-sky" style={{ position: 'absolute', top: '-10%', left: '-5%', width: '110%', height: '120%', transform: `translate3d(0, ${scrollY * 0.05}px, 0)` }}>
+            <div className="hero-sky-enter" style={{ width: '100%', height: '100%' }}>
+              <div style={{ width: '100%', height: '100%', position: 'absolute', animation: 'slowPan 30s ease-in-out infinite alternate', willChange: 'transform' }}>
                 <Image src="/back.webp" alt="Sky" fill sizes="100vw" style={{ objectFit: 'cover' }} priority />
               </div>
             </div>
@@ -127,69 +245,22 @@ export default function Home() {
           </div>
 
           {/* Phase 2 & 3: Outline Drawing & Filled Text Sequence */}
-          <div style={{
-            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-            zIndex: 6, pointerEvents: 'none'
-          }}>
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <mask id="text-mask">
-                  <rect width="100%" height="100%" fill="black" />
-                  <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
-                    <g transform={isMobile ? "translate(500, 460) scale(2.8) translate(-55, -50)" : "translate(500, 380) scale(3.5) translate(-55, -50)"} fill="white">
-                      <path d="M 30 0 L 10 0 A 10 10 0 0 0 0 10 L 0 90 A 10 10 0 0 0 10 100 L 30 100 L 30 57.5 L 15 65 L 15 75 L 20 75 L 20 90 L 10 90 L 10 10 L 20 10 L 20 47.5 L 30 42.5 Z" />
-                      <path d="M 40 0 L 50 0 L 50 32.5 L 40 37.5 Z" />
-                      <path d="M 40 52.5 L 50 47.5 L 50 100 L 40 100 Z" />
-                      <path d="M 60 0 L 70 0 L 70 37.5 L 60 32.5 Z" />
-                      <path d="M 60 47.5 L 70 52.5 L 70 100 L 60 100 Z" />
-                      <path d="M 80 0 L 90 0 L 90 47.5 L 80 42.5 Z" />
-                      <path d="M 80 57.5 L 90 62.5 L 90 90 L 100 90 L 100 67.5 L 110 72.5 L 110 90 A 10 10 0 0 1 100 100 L 80 100 Z" />
-                      <path d="M 55 32.5 L 80 45 L 80 55 L 55 42.5 L 30 55 L 30 45 Z" />
-                    </g>
-                  </svg>
-                  <text x="50%" y="68%" dominantBaseline="middle" textAnchor="middle" fill="white" style={{ fontSize: 'clamp(1.2rem, 5vw, 5rem)', fontWeight: 700, letterSpacing: '8px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>GALI HIGH LIVING</text>
-                </mask>
-              </defs>
-
-              {/* Outline Layer (Draws itself as you scroll) */}
-              <g style={{ opacity: 1 - Math.max(0, (scrollY - 800) / 400) }}>
-                <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
-                  <g transform={isMobile ? "translate(500, 460) scale(2.8) translate(-55, -50)" : "translate(500, 380) scale(3.5) translate(-55, -50)"} fill="transparent" stroke="rgba(255,255,255,0.9)" strokeWidth="1" strokeDasharray="500" strokeDashoffset={Math.max(0, 500 - Math.max(0, scrollY - 200) * 1)}>
-                    <path d="M 30 0 L 10 0 A 10 10 0 0 0 0 10 L 0 90 A 10 10 0 0 0 10 100 L 30 100 L 30 57.5 L 15 65 L 15 75 L 20 75 L 20 90 L 10 90 L 10 10 L 20 10 L 20 47.5 L 30 42.5 Z" />
-                    <path d="M 40 0 L 50 0 L 50 32.5 L 40 37.5 Z" />
-                    <path d="M 40 52.5 L 50 47.5 L 50 100 L 40 100 Z" />
-                    <path d="M 60 0 L 70 0 L 70 37.5 L 60 32.5 Z" />
-                    <path d="M 60 47.5 L 70 52.5 L 70 100 L 60 100 Z" />
-                    <path d="M 80 0 L 90 0 L 90 47.5 L 80 42.5 Z" />
-                    <path d="M 80 57.5 L 90 62.5 L 90 90 L 100 90 L 100 67.5 L 110 72.5 L 110 90 A 10 10 0 0 1 100 100 L 80 100 Z" />
-                    <path d="M 55 32.5 L 80 45 L 80 55 L 55 42.5 L 30 55 L 30 45 Z" />
-                  </g>
-                </svg>
-                <text x="50%" y="68%" dominantBaseline="middle" textAnchor="middle"
-                  fill="transparent" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5"
-                  strokeDasharray="3000"
-                  strokeDashoffset={Math.max(0, 3000 - Math.max(0, scrollY - 200) * 4)}
-                  style={{ fontSize: 'clamp(1.2rem, 5vw, 5rem)', fontWeight: 700, letterSpacing: '8px', fontFamily: 'system-ui, -apple-system, sans-serif' }}
-                >
-                  GALI HIGH LIVING
-                </text>
-              </g>
-
-              {/* Filled Layer (Trapped Building) */}
-              <foreignObject x="0" y="0" width="100%" height="100%" mask="url(#text-mask)" style={{ opacity: Math.min(1, Math.max(0, (scrollY - 800) / 400)) }}>
-                <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '-25%',
-                    left: 0,
-                    width: '100%',
-                    transform: `translateY(${-scrollY * 0.2}px)`
-                  }}>
-                    <img src="/mainhero.png" className="hero-building-img" />
-                  </div>
-                </div>
-              </foreignObject>
+          <div className="hero-ghl-stage">
+            <svg aria-hidden="true" width="0" height="0" style={{ position: 'absolute' }}>
+              <text
+                ref={taglineMeasureRef}
+                x="500"
+                y="710"
+                fontSize={78}
+                fontWeight={700}
+                letterSpacing="8"
+                fontFamily="var(--font-instrument-sans), system-ui, sans-serif"
+              >
+                GALI HIGH LIVING
+              </text>
             </svg>
+            {renderGhlSvg("desktop")}
+            {renderGhlSvg("mobile")}
           </div>
 
           {/* Building Layer - Moves up, fades out at 800 */}
@@ -197,7 +268,7 @@ export default function Home() {
             position: 'absolute',
             bottom: '-25%', /* Brings building higher up initially */
             transform: `translateY(${-scrollY * 0.2}px)`,
-            opacity: 1 - Math.min(1, Math.max(0, (scrollY - 800) / 400))
+            opacity: 1 - Math.min(1, Math.max(0, (scrollY - FILL_START) / FILL_DURATION))
           }}>
             <img src="/mainhero.png" alt="Building" className="hero-building-img" />
           </div>

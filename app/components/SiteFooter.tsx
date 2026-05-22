@@ -30,10 +30,8 @@ export function SiteFooter() {
               width={200}
               height={169}
               className="site-footer__logo"
-              style={{
-                width: "clamp(120px, 38vw, 200px)",
-                height: "auto",
-              }}
+              sizes="(max-width: 768px) 38vw, 200px"
+              style={{ height: "auto" }}
               priority={false}
             />
             <p className="site-footer__tagline">
