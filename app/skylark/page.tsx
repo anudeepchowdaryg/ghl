@@ -144,7 +144,7 @@ export default function SkylarkProject() {
               <div className="gallery-overlay" />
               <Image src="/vision.png" alt="Skylark Interior" fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
               <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Living Pavilion</span>
+                <span className="gallery-caption__eyebrow">Living Space</span>
                 <h4 className="gallery-caption__title">Bespoke Interior</h4>
               </div>
             </Reveal>
@@ -176,34 +176,21 @@ export default function SkylarkProject() {
       <section style={{ padding: '15rem clamp(2rem, 8vw, 10rem)', backgroundColor: '#111', color: '#fff' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '6rem' }}>
           
-          <Reveal direction="left" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <p style={{ fontSize: '0.85rem', letterSpacing: '4px', color: '#666', marginBottom: '2.5rem', textTransform: 'uppercase', fontWeight: 700 }}>04 / Location</p>
-              <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5.2rem)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.03em', margin: '0 0 2.5rem 0' }}>The Center<br />of Everything.</h2>
-              <p style={{ fontSize: '1.25rem', color: '#aaa', lineHeight: 1.8, fontWeight: 400, marginBottom: '3rem' }}>
-                Nestled in the most coveted real estate zone. Unrivaled connectivity combined with the seclusion of a private estate.
-              </p>
-            </div>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }}>
-              <div className="loc-card" style={{ padding: '2.5rem 1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#161616' }}>
-                <p style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 0.5rem 0', lineHeight: 1, letterSpacing: '-1px', color: '#fff' }}>05 <span style={{ fontSize: '1.1rem', color: '#666', fontWeight: 700, letterSpacing: '0' }}>mins</span></p>
-                <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: '#aaa', margin: 0, fontWeight: 700 }}>To Metro Terminus</p>
-              </div>
-              <div className="loc-card" style={{ padding: '2.5rem 1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#161616' }}>
-                <p style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 0.5rem 0', lineHeight: 1, letterSpacing: '-1px', color: '#fff' }}>20 <span style={{ fontSize: '1.1rem', color: '#666', fontWeight: 700, letterSpacing: '0' }}>mins</span></p>
-                <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: '#aaa', margin: 0, fontWeight: 700 }}>To Financial District</p>
-              </div>
-            </div>
+          <Reveal direction="left">
+            <p style={{ fontSize: '0.85rem', letterSpacing: '4px', color: '#666', marginBottom: '2.5rem', textTransform: 'uppercase', fontWeight: 700 }}>04 / Location</p>
+            <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5.2rem)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.03em', margin: '0 0 2.5rem 0' }}>The Center<br />of Everything.</h2>
+            <p style={{ fontSize: '1.25rem', color: '#aaa', lineHeight: 1.8, fontWeight: 400, margin: 0 }}>
+              Nestled in the most coveted real estate zone, combining unrivaled connectivity with the seclusion of a private estate.
+            </p>
           </Reveal>
           
           {/* Architectural Google Maps embedded */}
           <Reveal direction="right" delay={150} style={{ position: 'relative', width: '100%', height: '480px', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 30px 60px rgba(0,0,0,0.4)' }}>
             <iframe 
-              src="https://maps.google.com/maps?q=Skylark%20Residences&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+              src="https://maps.google.com/maps?q=13.2093486,79.1165983&t=&z=17&ie=UTF8&iwloc=&output=embed" 
               width="100%" 
               height="100%" 
-              style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.2) opacity(0.8)' }}
+              style={{ border: 0 }}
               allowFullScreen={true}
               loading="lazy"
             />

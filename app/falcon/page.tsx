@@ -284,16 +284,6 @@ export default function FalconProject() {
               </div>
             </Reveal>
 
-            {/* Small right image */}
-            <Reveal direction="right" delay={120} className="gallery-item gallery-item--narrow-tall">
-              <div className="gallery-overlay" />
-              <Image src="/vision.png" alt="Falcon Interior" fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
-              <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Living Pavilion</span>
-                <h4 className="gallery-caption__title">Bespoke Interior</h4>
-              </div>
-            </Reveal>
-
             {/* Bottom left small image */}
             <Reveal direction="left" delay={200} className="gallery-item gallery-item--narrow">
               <div className="gallery-overlay" />

@@ -7,6 +7,14 @@ import { Reveal } from '../components/Reveal';
 import { ProjectHero } from '../components/ProjectHero';
 import { ProjectPageStyles } from '../components/ProjectPageStyles';
 
+const PHOTOS = [
+  { src: '/datta.jpg', alt: 'Datta Daytime Elevation', eyebrow: 'Exterior Aspect', title: 'Modern Elevation' },
+  { src: '/datta2.jpg', alt: 'Datta Carport', eyebrow: 'Carport', title: 'Premium Driveway' },
+  { src: '/datta3.jpg', alt: 'Datta Night Facade', eyebrow: 'Night View', title: 'Illuminated Facade' },
+  { src: '/datta4.jpg', alt: 'Datta Entrance', eyebrow: 'Entrance', title: 'Grand Arrival' },
+  { src: '/datta5.jpg', alt: 'Datta Full Exterior', eyebrow: 'Full Aspect', title: 'Architectural Lighting' },
+] as const;
+
 export default function DattaProject() {
   const [scrollY, setScrollY] = useState(0);
 
@@ -59,8 +67,8 @@ export default function DattaProject() {
       </nav>
 
       <ProjectHero
-        imageSrc="/ghldatta.jpeg"
-        imageAlt="Datta"
+        imageSrc={PHOTOS[0].src}
+        imageAlt={PHOTOS[0].alt}
         scrollY={scrollY}
         subtitle="Bespoke Estate"
         titleWords={['DATTA']}
@@ -90,7 +98,7 @@ export default function DattaProject() {
       {/* Massive Visual Break */}
       <section style={{ width: '100vw', height: '85vh', position: 'relative', padding: '0 clamp(2rem, 5vw, 5rem)' }}>
          <Reveal direction="up" style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.05)' }}>
-            <Image src="/ghldatta.jpeg" alt="Interior Detail" fill sizes="(max-width: 1200px) 100vw, 85vw" style={{ objectFit: 'cover' }} />
+            <Image src={PHOTOS[4].src} alt={PHOTOS[4].alt} fill sizes="(max-width: 1200px) 100vw, 85vw" style={{ objectFit: 'cover' }} />
          </Reveal>
       </section>
 
@@ -129,43 +137,48 @@ export default function DattaProject() {
           </Reveal>
 
           <div className="project-gallery-grid">
-            {/* Main large image */}
             <Reveal direction="left" className="gallery-item gallery-item--wide">
               <div className="gallery-overlay" />
-              <Image src="/ghldatta.jpeg" alt="Datta Architectural View" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw" style={{ objectFit: 'cover' }} />
+              <Image src={PHOTOS[0].src} alt={PHOTOS[0].alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw" style={{ objectFit: 'cover' }} />
               <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Exterior Aspect</span>
-                <h4 className="gallery-caption__title">Modern Elevation</h4>
+                <span className="gallery-caption__eyebrow">{PHOTOS[0].eyebrow}</span>
+                <h4 className="gallery-caption__title">{PHOTOS[0].title}</h4>
               </div>
             </Reveal>
-            
-            {/* Small right image */}
+
             <Reveal direction="right" delay={120} className="gallery-item gallery-item--narrow-tall">
               <div className="gallery-overlay" />
-              <Image src="/vision.png" alt="Datta Interior" fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
+              <Image src={PHOTOS[1].src} alt={PHOTOS[1].alt} fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
               <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Living Pavilion</span>
-                <h4 className="gallery-caption__title">Bespoke Interior</h4>
+                <span className="gallery-caption__eyebrow">{PHOTOS[1].eyebrow}</span>
+                <h4 className="gallery-caption__title">{PHOTOS[1].title}</h4>
               </div>
             </Reveal>
 
-            {/* Bottom left small image */}
             <Reveal direction="left" delay={200} className="gallery-item gallery-item--narrow">
               <div className="gallery-overlay" />
-              <Image src="/Construction_Renovations_Remodeling.jpeg" alt="Datta Detail" fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
+              <Image src={PHOTOS[2].src} alt={PHOTOS[2].alt} fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
               <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Renovation Detail</span>
-                <h4 className="gallery-caption__title">Precision Core</h4>
+                <span className="gallery-caption__eyebrow">{PHOTOS[2].eyebrow}</span>
+                <h4 className="gallery-caption__title">{PHOTOS[2].title}</h4>
               </div>
             </Reveal>
 
-            {/* Bottom right large image */}
-            <Reveal direction="right" delay={280} className="gallery-item gallery-item--wide-short">
+            <Reveal direction="right" delay={240} className="gallery-item gallery-item--narrow">
               <div className="gallery-overlay" />
-              <Image src="/contrcution_consulting_service.jpeg" alt="Datta Landscape" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw" style={{ objectFit: 'cover' }} />
+              <Image src={PHOTOS[3].src} alt={PHOTOS[3].alt} fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
               <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Landscape aspect</span>
-                <h4 className="gallery-caption__title">Seamless Transitions</h4>
+                <span className="gallery-caption__eyebrow">{PHOTOS[3].eyebrow}</span>
+                <h4 className="gallery-caption__title">{PHOTOS[3].title}</h4>
+              </div>
+            </Reveal>
+
+            <Reveal direction="left" delay={280} className="gallery-item gallery-item--narrow">
+              <div className="gallery-overlay" />
+              <Image src={PHOTOS[4].src} alt={PHOTOS[4].alt} fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
+              <div className="gallery-caption">
+                <span className="gallery-caption__eyebrow">{PHOTOS[4].eyebrow}</span>
+                <h4 className="gallery-caption__title">{PHOTOS[4].title}</h4>
               </div>
             </Reveal>
           </div>
@@ -176,25 +189,12 @@ export default function DattaProject() {
       <section style={{ padding: '15rem clamp(2rem, 8vw, 10rem)', backgroundColor: '#111', color: '#fff' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '6rem' }}>
           
-          <Reveal direction="left" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <p style={{ fontSize: '0.85rem', letterSpacing: '4px', color: '#666', marginBottom: '2.5rem', textTransform: 'uppercase', fontWeight: 700 }}>04 / Location</p>
-              <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5.2rem)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.03em', margin: '0 0 2.5rem 0' }}>The Center<br />of Everything.</h2>
-              <p style={{ fontSize: '1.25rem', color: '#aaa', lineHeight: 1.8, fontWeight: 400, marginBottom: '3rem' }}>
-                Nestled in Hyderabad's premier Vasanth Nagar real estate zone, enjoying excellent connection with key technological corridors.
-              </p>
-            </div>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }}>
-              <div className="loc-card" style={{ padding: '2.5rem 1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#161616' }}>
-                <p style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 0.5rem 0', lineHeight: 1, letterSpacing: '-1px', color: '#fff' }}>05 <span style={{ fontSize: '1.1rem', color: '#666', fontWeight: 700, letterSpacing: '0' }}>mins</span></p>
-                <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: '#aaa', margin: 0, fontWeight: 700 }}>To City Center</p>
-              </div>
-              <div className="loc-card" style={{ padding: '2.5rem 1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#161616' }}>
-                <p style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 0.5rem 0', lineHeight: 1, letterSpacing: '-1px', color: '#fff' }}>15 <span style={{ fontSize: '1.1rem', color: '#666', fontWeight: 700, letterSpacing: '0' }}>mins</span></p>
-                <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: '#aaa', margin: 0, fontWeight: 700 }}>To IT Corridor</p>
-              </div>
-            </div>
+          <Reveal direction="left">
+            <p style={{ fontSize: '0.85rem', letterSpacing: '4px', color: '#666', marginBottom: '2.5rem', textTransform: 'uppercase', fontWeight: 700 }}>04 / Location</p>
+            <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5.2rem)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.03em', margin: '0 0 2.5rem 0' }}>The Center<br />of Everything.</h2>
+            <p style={{ fontSize: '1.25rem', color: '#aaa', lineHeight: 1.8, fontWeight: 400, margin: 0 }}>
+              Nestled in Hyderabad&apos;s premier Vasanth Nagar, a sanctuary of bespoke luxury in the heart of the city.
+            </p>
           </Reveal>
           
           {/* Architectural Google Maps embedded */}
@@ -203,7 +203,7 @@ export default function DattaProject() {
               src="https://maps.google.com/maps?q=Vasanth%20Nagar%20Hyderabad&t=&z=14&ie=UTF8&iwloc=&output=embed" 
               width="100%" 
               height="100%" 
-              style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.2) opacity(0.8)' }}
+              style={{ border: 0 }}
               allowFullScreen={true}
               loading="lazy"
             />

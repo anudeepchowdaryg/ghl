@@ -7,6 +7,14 @@ import { Reveal } from '../components/Reveal';
 import { ProjectHero } from '../components/ProjectHero';
 import { ProjectPageStyles } from '../components/ProjectPageStyles';
 
+const ELEVATIONS = [
+  { src: '/GK%20SENATE%20ELEVATION-1.jpg', alt: 'GK Senate Front Elevation', eyebrow: 'Front Facade', title: 'Main Elevation' },
+  { src: '/GK%20SENATE%20ELEVATION-2.jpg', alt: 'GK Senate Perspective View', eyebrow: 'Perspective', title: 'Angled View' },
+  { src: '/GK%20SENATE%20ELEVATION-3.jpg', alt: 'GK Senate Side Elevation', eyebrow: 'Side Profile', title: 'Curved Facade' },
+  { src: '/GK%20SENATE%20ELEVATION-4.jpg', alt: 'GK Senate Glass Facade', eyebrow: 'Glass Curtain', title: 'Entry Driveway' },
+  { src: '/GK%20SENATE%20ELEVATION-5.jpg', alt: 'GK Senate Corner Elevation', eyebrow: 'Corner Aspect', title: 'Rooftop Terrace' },
+] as const;
+
 export default function GkSenateProject() {
   const [scrollY, setScrollY] = useState(0);
 
@@ -59,8 +67,8 @@ export default function GkSenateProject() {
       </nav>
 
       <ProjectHero
-        imageSrc="/gk.jpg"
-        imageAlt="GK Senate"
+        imageSrc={ELEVATIONS[0].src}
+        imageAlt={ELEVATIONS[0].alt}
         scrollY={scrollY}
         subtitle="Commercial Hub"
         titleWords={['GK', 'SENATE']}
@@ -90,7 +98,7 @@ export default function GkSenateProject() {
       {/* Massive Visual Break */}
       <section style={{ width: '100vw', height: '85vh', position: 'relative', padding: '0 clamp(2rem, 5vw, 5rem)' }}>
          <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.05)' }}>
-            <Image src="/gk.jpg" alt="Interior Detail" fill sizes="(max-width: 1200px) 100vw, 85vw" style={{ objectFit: 'cover' }} />
+            <Image src={ELEVATIONS[1].src} alt={ELEVATIONS[1].alt} fill sizes="(max-width: 1200px) 100vw, 85vw" style={{ objectFit: 'cover' }} />
          </div>
       </section>
 
@@ -127,43 +135,48 @@ export default function GkSenateProject() {
           </Reveal>
 
           <div className="project-gallery-grid">
-            {/* Main large image */}
             <Reveal direction="left" className="gallery-item gallery-item--wide">
               <div className="gallery-overlay" />
-              <Image src="/gk.jpg" alt="GK Senate Architectural View" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw" style={{ objectFit: 'cover' }} />
+              <Image src={ELEVATIONS[0].src} alt={ELEVATIONS[0].alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw" style={{ objectFit: 'cover' }} />
               <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Commercial Hub</span>
-                <h4 className="gallery-caption__title">Modern Elevation</h4>
+                <span className="gallery-caption__eyebrow">{ELEVATIONS[0].eyebrow}</span>
+                <h4 className="gallery-caption__title">{ELEVATIONS[0].title}</h4>
               </div>
             </Reveal>
-            
-            {/* Small right image */}
+
             <Reveal direction="right" delay={120} className="gallery-item gallery-item--narrow-tall">
               <div className="gallery-overlay" />
-              <Image src="/constrcution_contracting.jpeg" alt="GK Senate Structural" fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
+              <Image src={ELEVATIONS[1].src} alt={ELEVATIONS[1].alt} fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
               <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Structural Elements</span>
-                <h4 className="gallery-caption__title">Commercial Scale</h4>
+                <span className="gallery-caption__eyebrow">{ELEVATIONS[1].eyebrow}</span>
+                <h4 className="gallery-caption__title">{ELEVATIONS[1].title}</h4>
               </div>
             </Reveal>
 
-            {/* Bottom left small image */}
             <Reveal direction="left" delay={200} className="gallery-item gallery-item--narrow">
               <div className="gallery-overlay" />
-              <Image src="/contrcution_image.jpeg" alt="GK Senate Detail" fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
+              <Image src={ELEVATIONS[2].src} alt={ELEVATIONS[2].alt} fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
               <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Engineering detail</span>
-                <h4 className="gallery-caption__title">Precision Core</h4>
+                <span className="gallery-caption__eyebrow">{ELEVATIONS[2].eyebrow}</span>
+                <h4 className="gallery-caption__title">{ELEVATIONS[2].title}</h4>
               </div>
             </Reveal>
 
-            {/* Bottom right large image */}
-            <Reveal direction="right" delay={280} className="gallery-item gallery-item--wide-short">
+            <Reveal direction="right" delay={240} className="gallery-item gallery-item--narrow">
               <div className="gallery-overlay" />
-              <Image src="/Site_preparation_infrastructure.jpeg" alt="GK Senate Infrastructure" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw" style={{ objectFit: 'cover' }} />
+              <Image src={ELEVATIONS[3].src} alt={ELEVATIONS[3].alt} fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
               <div className="gallery-caption">
-                <span className="gallery-caption__eyebrow">Infrastructure</span>
-                <h4 className="gallery-caption__title">Heavy Duty base</h4>
+                <span className="gallery-caption__eyebrow">{ELEVATIONS[3].eyebrow}</span>
+                <h4 className="gallery-caption__title">{ELEVATIONS[3].title}</h4>
+              </div>
+            </Reveal>
+
+            <Reveal direction="left" delay={280} className="gallery-item gallery-item--narrow">
+              <div className="gallery-overlay" />
+              <Image src={ELEVATIONS[4].src} alt={ELEVATIONS[4].alt} fill sizes="(max-width: 768px) 100vw, 30vw" style={{ objectFit: 'cover' }} />
+              <div className="gallery-caption">
+                <span className="gallery-caption__eyebrow">{ELEVATIONS[4].eyebrow}</span>
+                <h4 className="gallery-caption__title">{ELEVATIONS[4].title}</h4>
               </div>
             </Reveal>
           </div>
@@ -174,34 +187,21 @@ export default function GkSenateProject() {
       <section style={{ padding: '15rem clamp(2rem, 8vw, 10rem)', backgroundColor: '#111', color: '#fff' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '6rem' }}>
           
-          <Reveal direction="left" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <p style={{ fontSize: '0.85rem', letterSpacing: '4px', color: '#666', marginBottom: '2.5rem', textTransform: 'uppercase', fontWeight: 700 }}>04 / Location</p>
-              <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5.2rem)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.03em', margin: '0 0 2.5rem 0' }}>The Center<br />of Everything.</h2>
-              <p style={{ fontSize: '1.25rem', color: '#aaa', lineHeight: 1.8, fontWeight: 400, marginBottom: '3rem' }}>
-                Positioned in absolute proximity to major commercial routes and prime airport channels.
-              </p>
-            </div>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }}>
-              <div className="loc-card" style={{ padding: '2.5rem 1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#161616' }}>
-                <p style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 0.5rem 0', lineHeight: 1, letterSpacing: '-1px', color: '#fff' }}>05 <span style={{ fontSize: '1.1rem', color: '#666', fontWeight: 700, letterSpacing: '0' }}>mins</span></p>
-                <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: '#aaa', margin: 0, fontWeight: 700 }}>To Financial District</p>
-              </div>
-              <div className="loc-card" style={{ padding: '2.5rem 1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#161616' }}>
-                <p style={{ fontSize: '3rem', fontWeight: 800, margin: '0 0 0.5rem 0', lineHeight: 1, letterSpacing: '-1px', color: '#fff' }}>15 <span style={{ fontSize: '1.1rem', color: '#666', fontWeight: 700, letterSpacing: '0' }}>mins</span></p>
-                <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: '#aaa', margin: 0, fontWeight: 700 }}>To International Airport</p>
-              </div>
-            </div>
+          <Reveal direction="left">
+            <p style={{ fontSize: '0.85rem', letterSpacing: '4px', color: '#666', marginBottom: '2.5rem', textTransform: 'uppercase', fontWeight: 700 }}>04 / Location</p>
+            <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5.2rem)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.03em', margin: '0 0 2.5rem 0' }}>The Center<br />of Everything.</h2>
+            <p style={{ fontSize: '1.25rem', color: '#aaa', lineHeight: 1.8, fontWeight: 400, margin: 0 }}>
+              Strategically positioned for seamless connectivity across the city.
+            </p>
           </Reveal>
           
           {/* Architectural Google Maps embedded */}
           <Reveal direction="right" delay={150} style={{ position: 'relative', width: '100%', height: '480px', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 30px 60px rgba(0,0,0,0.4)' }}>
             <iframe 
-              src="https://maps.google.com/maps?q=GK%20Senate%20Hyderabad&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+              src="https://maps.google.com/maps?q=13.028611,77.6331562&t=&z=17&ie=UTF8&iwloc=&output=embed" 
               width="100%" 
               height="100%" 
-              style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.2) opacity(0.8)' }}
+              style={{ border: 0 }}
               allowFullScreen={true}
               loading="lazy"
             />
