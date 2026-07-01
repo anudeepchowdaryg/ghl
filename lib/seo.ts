@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 export function getSiteUrl(): string {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
   if (fromEnv) return fromEnv;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return "https://ghlco.in";
+  // Production domain redirects ghlco.in → www.ghlco.in
+  return "https://www.ghlco.in";
 }
 
 export const SITE = {
@@ -222,6 +222,10 @@ export const rootMetadata: Metadata = {
   verification: process.env.GOOGLE_SITE_VERIFICATION
     ? { google: process.env.GOOGLE_SITE_VERIFICATION }
     : undefined,
+  icons: {
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    apple: [{ url: "/logo.png", type: "image/png" }],
+  },
 };
 
 export function projectMetadata(slug: ProjectSlug): Metadata {
