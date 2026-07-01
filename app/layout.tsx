@@ -1,16 +1,15 @@
-import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
+import { StructuredData } from "./components/StructuredData";
+import { organizationJsonLd, rootMetadata, websiteJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "GHL | Gali High Living",
-  description: "Premium real estate builders and developers. We build more than properties, we build legacies.",
-};
+export const metadata = rootMetadata;
 
 export default function RootLayout({
   children,
@@ -19,11 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-IN"
       className={`${instrumentSans.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <StructuredData data={[organizationJsonLd(), websiteJsonLd()]} />
+        {children}
+      </body>
     </html>
   );
 }

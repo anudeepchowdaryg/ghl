@@ -90,7 +90,7 @@ export default function SkylarkProject() {
       {/* Massive Visual Break */}
       <section style={{ width: '100vw', height: '85vh', position: 'relative', padding: '0 clamp(2rem, 5vw, 5rem)' }}>
          <Reveal direction="up" style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.05)' }}>
-            <Image src="/vision.png" alt="Interior Detail" fill sizes="(max-width: 1200px) 100vw, 85vw" style={{ objectFit: 'cover' }} />
+            <Image src="/skylarkdj.jpeg" alt="Interior Detail" fill sizes="(max-width: 1200px) 100vw, 85vw" style={{ objectFit: 'cover' }} />
          </Reveal>
       </section>
 

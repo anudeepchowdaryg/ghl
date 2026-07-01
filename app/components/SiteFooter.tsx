@@ -68,8 +68,8 @@ export function SiteFooter() {
               </div>
               <div className="site-footer__contact-item">
                 <span className="site-footer__contact-label">Email</span>
-                <a href="mailto:galihighliving@gmail.com" className="site-footer__contact-link">
-                  galihighliving@gmail.com
+                <a href="mailto:contact@ghlco.in" className="site-footer__contact-link">
+                  contact@ghlco.in
                 </a>
               </div>
               <div className="site-footer__contact-item">
@@ -86,7 +86,7 @@ export function SiteFooter() {
           <div className="site-footer__legal">
             <Link href="#" className="site-footer__legal-link">Terms & Conditions</Link>
             <Link href="#" className="site-footer__legal-link">Privacy Policy</Link>
-            <Link href="#" className="site-footer__legal-link">Sitemap</Link>
+            <Link href="/sitemap.xml" className="site-footer__legal-link">Sitemap</Link>
             <a
               href="https://www.instagram.com/gali.highliving/"
               className="site-footer__instagram"
