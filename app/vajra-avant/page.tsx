@@ -30,41 +30,6 @@ export default function VajraAvantProject() {
       
       <ProjectPageStyles />
 
-      {/* Dynamic Transparent/Solid Navbar */}
-      <nav style={{ 
-        position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 100,
-        padding: '2rem clamp(1.5rem, 5vw, 4rem)', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        background: scrollY > 50 ? 'rgba(255,255,255,0.98)' : 'transparent',
-        backdropFilter: scrollY > 50 ? 'blur(20px)' : 'none',
-        borderBottom: scrollY > 50 ? '1px solid rgba(0,0,0,0.06)' : 'none',
-        transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
-      }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <Image
-            src="/logo.png"
-            alt="GHL"
-            width={150}
-            height={50}
-            priority
-            style={{
-              objectFit: 'contain',
-              height: '44px',
-              width: 'auto',
-              filter: scrollY > 50 ? 'none' : 'brightness(0) invert(1)',
-              transition: 'filter 0.5s',
-            }}
-          />
-        </Link>
-        <Link href="/#projects" className="nav-btn" style={{ 
-          fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700, 
-          border: scrollY > 50 ? '1px solid rgba(0,0,0,0.15)' : '1px solid rgba(255,255,255,0.3)', 
-          padding: '0.9rem 1.8rem', borderRadius: '50px', textDecoration: 'none', 
-          color: scrollY > 50 ? '#111' : '#fff', backgroundColor: 'transparent'
-        }}>
-          Close Project
-        </Link>
-      </nav>
-
       <ProjectHero
         imageSrc={PHOTOS[0].src}
         imageAlt={PHOTOS[0].alt}

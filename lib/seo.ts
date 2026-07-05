@@ -1,32 +1,16 @@
 import type { Metadata } from "next";
+import {
+  CANONICAL_SITE_URL,
+  COMPANY,
+  DEFAULT_KEYWORDS,
+  getSiteUrl,
+} from "@/lib/company";
 
-export function getSiteUrl(): string {
-  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  if (fromEnv) return fromEnv;
-  // Production domain redirects ghlco.in → www.ghlco.in
-  return "https://www.ghlco.in";
-}
+export { CANONICAL_SITE_URL, getSiteUrl };
 
-export const SITE = {
-  name: "GHL | Gali High Living",
-  shortName: "Gali High Living",
-  legalName: "GHL Builders & Developers",
-  description:
-    "Premium real estate builders and developers in Bengaluru. Luxury apartments, villas, and commercial landmarks crafted with uncompromising quality.",
-  locale: "en_IN",
-  email: "contact@ghlco.in",
-  phone: "+919606037011",
-  address: {
-    street: "Site No: 4C-414, Falcon Ritz, OMBR Layout, Banaswadi",
-    city: "Bengaluru",
-    region: "Karnataka",
-    postalCode: "560043",
-    country: "IN",
-  },
-  social: {
-    instagram: "https://www.instagram.com/gali.highliving/",
-  },
-} as const;
+export const SITE = COMPANY;
+
+const defaultKeywords = DEFAULT_KEYWORDS;
 
 export const PROJECTS = {
   falcon: {
@@ -96,16 +80,6 @@ export const ALL_ROUTES = [
   })),
 ];
 
-const defaultKeywords = [
-  "Gali High Living",
-  "GHL Builders",
-  "luxury apartments Bengaluru",
-  "premium real estate Bangalore",
-  "real estate developers India",
-  "Falcon Ritz Banaswadi",
-  "GHL projects",
-];
-
 export function createPageMetadata({
   title,
   description,
@@ -165,68 +139,6 @@ export function createPageMetadata({
     },
   };
 }
-
-export const rootMetadata: Metadata = {
-  metadataBase: new URL(getSiteUrl()),
-  title: {
-    default: SITE.name,
-    template: `%s | ${SITE.shortName}`,
-  },
-  description: SITE.description,
-  keywords: defaultKeywords,
-  authors: [{ name: SITE.legalName, url: getSiteUrl() }],
-  creator: SITE.legalName,
-  publisher: SITE.legalName,
-  category: "Real Estate",
-  alternates: {
-    canonical: getSiteUrl(),
-  },
-  openGraph: {
-    type: "website",
-    locale: SITE.locale,
-    url: getSiteUrl(),
-    siteName: SITE.name,
-    title: SITE.name,
-    description: SITE.description,
-    images: [
-      {
-        url: `${getSiteUrl()}/mainhero.png`,
-        width: 1200,
-        height: 630,
-        alt: SITE.name,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: SITE.name,
-    description: SITE.description,
-    images: [`${getSiteUrl()}/mainhero.png`],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  verification: process.env.GOOGLE_SITE_VERIFICATION
-    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
-    : undefined,
-  icons: {
-    icon: [{ url: "/logo.png", type: "image/png" }],
-    apple: [{ url: "/logo.png", type: "image/png" }],
-  },
-};
 
 export function projectMetadata(slug: ProjectSlug): Metadata {
   const project = PROJECTS[slug];

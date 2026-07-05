@@ -52,7 +52,6 @@ const ghlLogoPaths = [
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
-  const [isNavVisible, setIsNavVisible] = useState(true);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const ghlPathRefs = useRef<(SVGPathElement | null)[]>([]);
   const taglineMeasureRef = useRef<SVGTextElement | null>(null);
@@ -70,19 +69,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrollY(currentScrollY);
-
-      if (currentScrollY < 100) {
-        setIsNavVisible(true);
-      } else if (currentScrollY > lastScrollY) {
-        setIsNavVisible(false); // scrolling down
-      } else {
-        setIsNavVisible(true); // scrolling up
-      }
-      lastScrollY = currentScrollY;
+      setScrollY(window.scrollY);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -191,26 +179,6 @@ export default function Home() {
 
   return (
     <>
-      <nav className="navbar" style={{
-        backgroundColor: scrollY > 100 ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
-        boxShadow: scrollY > 100 ? '0 4px 20px rgba(0,0,0,0.05)' : 'none',
-        backdropFilter: scrollY > 100 ? 'blur(10px)' : 'none',
-        transform: isNavVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, box-shadow 0.4s ease'
-      }}>
-        <div className="nav-brand" style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
-          <Image src="/logo.png" alt="GHL Logo" width={150} height={50} style={{ objectFit: 'contain', maxHeight: '40px', width: 'auto', height: 'auto' }} priority />
-        </div>
-        <div className="nav-links" style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '3rem' }}>
-          <a href="#projects" className="nav-link">Projects</a>
-          <a href="#expertise" className="nav-link">Expertise</a>
-          <a href="#about" className="nav-link">About Us</a>
-        </div>
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-          <button className="btn-outline">Inquire Now</button>
-        </div>
-      </nav>
-
       <div style={{ height: '350vh', position: 'relative' }}>
         <section className="hero-layered" style={{ position: 'sticky', top: 0, height: '100dvh', overflow: 'hidden' }}>
           <div className="hero-layer hero-sky" style={{ position: 'absolute', top: '-10%', left: '-5%', width: '110%', height: '120%', transform: `translate3d(0, ${scrollY * 0.05}px, 0)` }}>
